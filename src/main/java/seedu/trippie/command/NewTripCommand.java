@@ -42,7 +42,6 @@ public class NewTripCommand extends Command {
 
         String name = ui.getLine();
         Trip newTrip = new Trip(index, name, startDate);
-
         newTrip.getExpenseListObject().setForExValue(forEx);
         newTrip.getExpenseListObject().setCurrencyAbbreviation(currencyAbbreviation);
         newTrip.getExpenseListObject().setBudgetValue(budget);
