@@ -1,0 +1,77 @@
+
+
+-> Trippie: run
+activate Trippie
+
+create TrippieData
+Trippie->TrippieData: new
+activate TrippieData
+TrippieData-->Trippie
+deactivate TrippieData
+
+create UI
+Trippie->UI: new
+activate UI
+UI-->Trippie
+deactivate UI
+
+create Parser
+Trippie->Parser: new
+activate Parser
+Parser-->Trippie
+deactivate Parser
+
+@startuml
+activate Trippie
+
+loop not isExit
+    Trippie -> UI: in
+    activate UI
+
+    UI --> Trippie: fullCommand
+    deactivate UI
+
+
+    Trippie -> Parser: parse
+    activate Parser
+
+    create Command
+    Parser -> Command: new
+    activate Command
+    Command -> Parser: command
+    deactivate Command
+
+    Parser -> Trippie: command
+    deactivate Parser
+
+    opt c is not null
+
+        Trippie -> Command: execute
+        activate Command
+
+        Command -> TrippieData:setTripList
+        activate TrippieData
+        TrippieData --> Command
+        deactivate TrippieData
+
+        Command -> UI: print/getline
+        activate UI
+        UI --> Command
+        deactivate UI
+
+        Command --> Trippie
+        deactivate Command
+
+    end
+
+    Trippie -> Storage:saveMasterFile/saveTrip
+    activate Storage
+
+    Storage --> Trippie
+    deactivate Storage
+
+
+    deactivate Trippie
+end
+
+@enduml
