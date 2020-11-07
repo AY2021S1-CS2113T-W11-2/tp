@@ -14,7 +14,7 @@ Below is a list of contents that is included in this document.
     * [3.5 Storage](#35-storage-ivander)
     * [3.6 Command](#36-command-wei-shuang)
     * [3.7 Exceptions](#37-exceptions-wei-shuang)
-* [4.0 Implementation](#40-implementation)
+* [4.0 Implementation](#40-implementation-dg-to-complete-by-wed-28-oct-soft)
     * [4.1 Multiple Trips Structure](#41-multiple-trips-structure-ivander)
     * [4.2 Sorting Place List](#42-sorting-place-list-kian-en)
     * [4.3 Budget and Expenses](#43-budget-and-expenses-shawn)
@@ -66,9 +66,12 @@ This section explains the high-level design of the application. Given below is a
 
 ### 3.1 Architecture (Felix)
 
+<kbd>
+
 ![UML Diagram Main](https://i.imgur.com/V3vUpoo.jpg)
 <center><i>Figure 1: Overall Architecture</i></center>
 
+</kbd>
 
 The Architecture Diagram given above explains the high-level design of Trippie. Shown below is a diagram of Trippie's high-level structure.
 
@@ -98,12 +101,14 @@ When the `Parser` class is unable to successfully parse the user's input, `Tripp
 
 ### 3.4 TrippieData (Ivander)
 
-The `TrippieData` class is implemented to store all of your data during Trippie's runtime. Below is its class diagram.
+The `TrippieData` class is implemented to store all of your data during Trippie's runtime. Below is an architecture diagram of the class.
 
+<kbd>
 
 ![TrippieData UML Diagram](https://i.imgur.com/3eAMiob.jpg)
 <center><i>Figure 3: Class Architecture</i></center>
 
+</kbd>
 
 The explanation for the above *Figure 3* is as follows:
 1. `TrippieData` can contain many `Trip` objects.
@@ -113,11 +118,11 @@ The explanation for the above *Figure 3* is as follows:
 
 To get the name of a `Place` of index 5 in `PlaceList` and from Trip of index 4 in TrippieData, the program will be implemented based on the following UML diagram.
 
+<kbd>
 
-
-![Getting_Name_Of_Place_Sequence_Diagram](https://i.imgur.com/6xMMhDI.png)
+![](https://i.imgur.com/6xMMhDI.png)
 <center><i>Figure 4: Getting a name of a Place object.</i></center>
-
+</kbd>
 
 
 ### 3.5 Storage (Ivander)
@@ -134,31 +139,36 @@ Important methods inside this class are:
 Refer to Multiple Trips Implementation to find out more about the file structure.
 
 ### 3.6 Command (Wei Shuang)
-The `Command` class is designed as the parent class for other command classes (e.g. `NewTripCommand`, `AddExpenseCommand`, `ExitCommand` etc). Below shows its class diagram:
+The `Command` class is designed as the parent class for other command classes (e.g. `NewTripCommand`, `AddExpenseCommand`, `ExitCommand` etc). Below shows the architecture diagram for the `Command` class:
+
+<kbd>
 
 ![Command UML Diagram](https://i.imgur.com/2puXxO7.jpg)
 
 <center><i>Figure 5: Commands Classes</i></center>
+
+</kbd>
 
 Classes inherited from the `Command` class will overwrite the `execute` method in the parent class, which is written in correspond to the command class' name. 
 
 ### 3.7 Exceptions (Wei Shuang)
 The `TrippieException` class is designed as the parent class for the other exception classes like the `TrippieIllegalCommandException` class. These exception classes are created to specify the exceptions faced when `Trippie` is running.
 
-Below shows its class diagram:
+Below shows the architecture for `TrippieException`:
 
+<kbd>
 
 ![Exception UML Diagram](https://i.imgur.com/ps7ZxEQ.jpg)
 
 <center><i>Figure 6: Exception Classes</i> </center>
-
+</kbd>
 
 * `TrippieIllegalCommandException` is thrown when `Parser` class is unable to parse the command successfully.
 * `TrippieInvalidArgumentException` is thrown when the individual commands inherited from `Command` class meets an error.
 * `TrippieExceedBudgetException` is thrown when expenses in the saved trip exceeds the budget given by user.
 
 
-## 4.0 Implementation
+## 4.0 Implementation [DG to complete by Wed 28 Oct (soft)]
 
 This section elaborates on some unique details about how certain features are implemented.
 
@@ -205,13 +215,14 @@ Likewise when sorting expenses, Trippie will sort them based on *Day*.
 
 ### 4.3 Budget and Expenses (Shawn)
 
-Trippie provides travellers an easy and convenient way to track expenses while constantly ensuring that the budget has not been exceeded. Below is the class diagram.
+Trippie provides travellers an easy and convenient way to track expenses while constantly ensuring that the budget is not exceeded.
 
+<kbd>
 
 ![Expenses UML Diagram](https://i.imgur.com/xuZNMxG.jpg)
 
 <center><i>Figure 7: Expenses Classes</i></center>
-
+</kbd>
 
 The `NewTripCommand` receives `currencyAbbreviation`, `budgetValue` and `ForExValue` from the inputs and stores it within the current `Trip` object. `ExpenseList` array object which consists of `Expense` object uitilized the relevant objects stored in `Trip`. This allows `AddExpenseCommand`, `DeleteExpenseCommand` and `ListExpenseCommand` to access the data and edit or list them respectively.
 `AddExpenseCommand` consist of `ExpenseComparator` which implements `Comparator<Expense>`. The `ExpenseComparator` sorts the variables in a blackbox by <b>comparing</b> two objects at a time.
@@ -219,23 +230,27 @@ The `NewTripCommand` receives `currencyAbbreviation`, `budgetValue` and `ForExVa
 
 A sample output can be seen as follows:
 ```
-Total budget: 300.00 MYR (200.00 SGD)
+Total budget: $300.00 MYR (200.00 SGD)
 Expense List:
-[1] Day 1: bubble tea - 8.00
-[2] Day 2: hotel room - 200.00
-Your current total spending is 208.00 MYR (138.67 SGD)
-Your current remaining budget is 92.00 MYR (61.33 SGD)
+[1] Day 1: bubble tea - $8.00
+[2] Day 2: hotel room - $200.00
+Your current total spending is $208.00 MYR (138.67 SGD)
+Your current remaining budget is $92.00 MYR (61.33 SGD)
 You are still spending within your budget.
 [=======---] 69.3%
 ```
 
 ### 4.4 Foreign Exchange Converter (Shawn)
 
-Trippie provide travellers with a quicker alternative to convert any amount into local or foreign currency. Below is its class diagram.
+Trippie provide travellers with a quicker alternative to convert any amount into local or foreign currency.
+
+<kbd>
 
 ![Currency UML Diagram](https://i.imgur.com/wxM71AO.jpg)
-<center><i>Figure 8: Currency Classes</i></center>
 
+
+<center><i>Figure 8: Currency Classes</i></center>
+</kbd>
 
 Similar to [4.3 Budget and Expenses](#43-budget-and-expenses-shawn), `currencyAbbreviation`, `budgetValue` and `forExValue` are retrivable from `Trip` object.
 `Currency` object composes of an **enummeration** `CurrencyType` object. This provides **clarity** since it consists of only `LOCAL` and `FOREIGN` contants.
@@ -276,21 +291,6 @@ Forex Abbreviation: MYR
 
 Forex Rate: 3.0
 ```
-###4.6 Addition Class Diagrams [Confirm if we still need them]:
-
-
-![UML Diagram Main](https://github.com/AY2021S1-CS2113T-W11-2/tp/blob/master/docs/diagrams/Trippie%20UML-Main.jpg?raw=true)
-<center><i>Figure 9: Overall Architecture</i></center>
-
-
-![UML Diagram](https://github.com/AY2021S1-CS2113T-W11-2/tp/blob/master/docs/diagrams/Trippie%20UML-Class%20Diagram.jpg?raw=true)
-<center><i>Figure 10: Class Types and Parameters</i></center>
-
-![UML Diagram Command](https://github.com/AY2021S1-CS2113T-W11-2/tp/blob/master/docs/diagrams/Trippie%20UML-Command.jpg?raw=true)
-<center><i>Figure 11: Commands Classes</i></center>
-
-![UML Diagram Exception](https://github.com/AY2021S1-CS2113T-W11-2/tp/blob/master/docs/diagrams/Trippie%20UML-Exception.jpg?raw=true)
-<center><i>Figure 12: Exception Classes</i></center>
 
 ## 5.0 Appendix: Requirements
 
@@ -364,6 +364,20 @@ Here are the list of use cases for Trippie.
 * *Java* - A programming language
 
 ## 6.0 Appendix: Instructions for Manual Testing (Shawn)
+
+
+![UML Diagram Main](https://github.com/AY2021S1-CS2113T-W11-2/tp/blob/master/docs/diagrams/Trippie%20UML-Main.jpg?raw=true)
+<center><i>Figure 9: Overall Architecture</i></center>
+
+
+![UML Diagram](https://github.com/AY2021S1-CS2113T-W11-2/tp/blob/master/docs/diagrams/Trippie%20UML-Class%20Diagram.jpg?raw=true)
+<center><i>Figure 10: Class Types and Parameters</i></center>
+
+![UML Diagram Command](https://github.com/AY2021S1-CS2113T-W11-2/tp/blob/master/docs/diagrams/Trippie%20UML-Command.jpg?raw=true)
+<center><i>Figure 11: Commands Classes</i></center>
+
+![UML Diagram Exception](https://github.com/AY2021S1-CS2113T-W11-2/tp/blob/master/docs/diagrams/Trippie%20UML-Exception.jpg?raw=true)
+<center><i>Figure 12: Exception Classes</i></center>
 
 Given below are the instructions to test the app manually.
 
@@ -572,9 +586,3 @@ That amount in your foreign currency is 750.00 THA.
 ```
 Bye. Hope to see you again soon!
 ```
-
-<center> 
-
-[Back to the top](#table-of-content)
-
-</center>
